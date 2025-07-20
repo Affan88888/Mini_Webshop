@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import Header from '../../components/Header';
 import FilterBar from '../../components/FilterBar';
 import ProductCard from '../../components/ProductCard';
-import Footer from '../../components/Footer';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);

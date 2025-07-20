@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState} from 'react';
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import { useCart } from '../../contexts/CartContext';
 
 const ProductDetailPage = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
                 const data = await response.json();
                 setProduct(data);
             } catch (error) {
-                console.error("Failed fetchi product: ", error);           
+                console.error("Failed fetching product: ", error);           
             }
         };
 
@@ -40,7 +40,9 @@ const ProductDetailPage = () => {
                 <p className="text-gray-700 mb-4">{product.description}</p>
                 <p className="text-xl font-semibold">{product.price}</p>
                 <p className="text-sm text-gray-500">Available: {product.quantity}</p>
-                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                <button
+                    onClick={() => addToCart(product)}
+                    className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     Add to Cart
                 </button>
             </div>
