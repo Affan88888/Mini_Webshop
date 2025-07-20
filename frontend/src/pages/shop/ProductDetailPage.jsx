@@ -30,7 +30,6 @@ const ProductDetailPage = () => {
 
     return (
         <div>
-            <Header />
             <div className="p-8">
                 <img 
                     src={product.imageUrl} 
@@ -45,7 +44,6 @@ const ProductDetailPage = () => {
                     Add to Cart
                 </button>
             </div>
-            <Footer />
         </div>
     );
 };

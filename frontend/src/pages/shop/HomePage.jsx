@@ -26,7 +26,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <Header />
       <FilterBar />
       <div className="p-4">
         {loading ? (
@@ -39,7 +38,6 @@ const HomePage = () => {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 };
