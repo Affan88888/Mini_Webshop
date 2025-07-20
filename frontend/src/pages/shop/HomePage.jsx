@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import FilterBar from '../../components/FilterBar';
 import ProductCard from '../../components/ProductCard';
+import { API_BASE_URL } from '../../config';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/products");
+        const response = await fetch(`${API_BASE_URL}/products`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

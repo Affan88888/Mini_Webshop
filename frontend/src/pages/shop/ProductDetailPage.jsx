@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState} from 'react';
 import { useCart } from '../../contexts/CartContext';
+import { API_BASE_URL } from '../../config';
 
 const ProductDetailPage = () => {
     const { id } = useParams();
@@ -10,7 +11,7 @@ const ProductDetailPage = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/products/${id}`);
+                const response = await fetch(`${API_BASE_URL}/products/${id}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
