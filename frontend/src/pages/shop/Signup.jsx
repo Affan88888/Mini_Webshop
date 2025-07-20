@@ -1,80 +1,79 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          role: "user",
+        }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.detail);
+        alert(data.detail);
         return;
       }
 
-      const data = await response.json();
       localStorage.setItem("currentUser", JSON.stringify(data.user));
-
-      if (data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/"); 
-      }
-    } catch (error) {
-      alert("Login failed. Backend might not be running.");
-      console.error(error);
+      navigate("/"); // nakon signupa, redirektuje se na homepage
+    } catch (err) {
+      alert("Signup failed. Is the backend running?");
+      console.error(err);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleSignup}
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
         <input
           type="email"
           placeholder="Email"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
           className="w-full mb-4 px-3 py-2 border rounded"
         />
 
         <input
           type="password"
           placeholder="Password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
           className="w-full mb-4 px-3 py-2 border rounded"
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded"
+          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
         >
-          Login
+          Sign Up
         </button>
 
         <p className="text-sm text-center mt-4">
-          Don’t have an account?{" "}
-          <a href="/signup" className="text-blue-600 hover:underline">
-            Sign up
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 hover:underline">
+            Log in
           </a>
         </p>
       </form>
@@ -82,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

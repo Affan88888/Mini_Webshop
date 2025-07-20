@@ -1,4 +1,22 @@
 [
-  { "email": "admin@example.com", "password": "admin123", "role": "admin" },
-  { "email": "user@example.com", "password": "user123", "role": "user" }
+  {
+    "email": "admin@example.com",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "email": "user@example.com",
+    "password": "user123",
+    "role": "user"
+  },
+  {
+    "email": "affan@gmail.com",
+    "password": "affan",
+    "role": "user"
+  },
+  {
+    "email": "affankapidzic3@gmail.com",
+    "password": "affan",
+    "role": "user"
+  }
 ]

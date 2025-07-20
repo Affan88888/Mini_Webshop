@@ -1,7 +1,9 @@
 from fastapi import APIRouter, HTTPException
 import json
+import os
 
 router = APIRouter()
+products_path = os.path.join("data", "products.json")
 
 @router.get("/products")
 def get_products():
@@ -9,7 +11,7 @@ def get_products():
     Returna listu svih dostupnih produkata.
     Loada produkte iz 'data/products.json'.
     """
-    with open("./data/products.json", "r") as f:
+    with open(products_path, "r") as f:
         products = json.load(f)
     return products
 
@@ -19,7 +21,7 @@ def get_product(product_id: int):
     Returna produkt sa odgovarajucim ID-om.
     Loada produkte iz 'data/products.json'.
     """
-    with open("./data/products.json", "r") as f:
+    with open(products_path, "r") as f:
         products = json.load(f)
         
     #Pretrazi produkt sa odgovarajucim ID=om
