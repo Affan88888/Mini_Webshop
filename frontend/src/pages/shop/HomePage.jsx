@@ -1,0 +1,47 @@
+import { useEffect, useState } from 'react';
+import Header from '../../components/Header';
+import FilterBar from '../../components/FilterBar';
+import ProductCard from '../../components/ProductCard';
+import Footer from '../../components/Footer';
+
+const HomePage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/products");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to load products: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, []);
+
+  return (
+    <div>
+      <Header />
+      <FilterBar />
+      <div className="p-4">
+        {loading ? (
+          <p>Loading products...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export default HomePage;
