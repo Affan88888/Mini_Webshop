@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
 import json
 import os
+
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
 products_path = os.path.join("data", "products.json")

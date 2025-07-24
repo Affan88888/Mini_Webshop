@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
+import  { useAuth } from "../../contexts/AuthContext"
 
 const Login = () => {
+  const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ const Login = () => {
       }
 
       const data = await response.json();
+
+      setUser(data.user);
 
       if (data.user.role === "admin") {
         navigate("/admin");

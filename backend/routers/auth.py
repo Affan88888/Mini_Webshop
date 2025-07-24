@@ -1,8 +1,10 @@
 import os
 import json
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Response, Request
 from pydantic import BaseModel
+from jose import jwt, JWTError
+from dotenv import load_dotenv
 
 from utils.jwt_utils import create_jwt_token
 
@@ -43,7 +45,6 @@ def login_user(data: LoginRequest, response: Response):
 
     raise HTTPException(status_code=401, detail="Invalid email or password.")
 
-
 @router.post("/signup")
 def signup_user(data: SignupRequest):
     try:
@@ -69,3 +70,25 @@ def signup_user(data: SignupRequest):
         json.dump(users, f, indent=2)
 
     return {"status": "success", "user": new_user}
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+
+@router.get("/check-auth")
+def get_logged_in_user(request: Request):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return {"user": {"email": payload["sub"]}}
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+@router.post("/logout")
+def logout_user(response: Response):
+    response.delete_cookie("access_token")
+    return {"status": "success"}
