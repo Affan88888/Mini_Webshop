@@ -18,6 +18,7 @@ class LoginRequest(BaseModel):
     
 class SignupRequest(BaseModel):
     email: str
+    username: str
     password: str
     role: str = "user"  # 'user' je po deafultu
     
@@ -41,7 +42,14 @@ def login_user(data: LoginRequest, response: Response):
                 secure =  False, # Set to True if using HTTPS
                 max_age = 3600 # 1 sat
             )
-            return {"status": "success", "user": {"email": user["email"], "role": user["role"]}}
+            return {
+                "status": "success",
+                "user": {
+                    "email": user["email"],
+                    "username": user["username"],
+                    "role": user["role"]
+                }
+            }
 
     raise HTTPException(status_code=401, detail="Invalid email or password.")
 
@@ -53,13 +61,16 @@ def signup_user(data: SignupRequest, response: Response):
     except FileNotFoundError:
         users = []
 
-    # Provjeriti da li email vec postoji
+    # Provjeriti da li email vec postoji i da li ime vec postoji
     for user in users:
         if user["email"] == data.email:
             raise HTTPException(status_code=400, detail="Email already registered.")
+        if user["username"] == data.username:
+            raise HTTPException(status_code=400, detail="Username already exists.")
 
     new_user = {
         "email": data.email,
+        "username": data.username,
         "password": data.password, # Should be hashed
         "role": data.role
     }
@@ -78,7 +89,14 @@ def signup_user(data: SignupRequest, response: Response):
         samesite="Lax",
         max_age= 3600 # 1 sat
     )
-    return {"status": "success", "user": {"email": new_user["email"], "role": new_user["role"]}}
+    return {
+        "status": "success",
+        "user": {
+            "email": new_user["email"],
+            "username": new_user["username"],
+            "role": new_user["role"]
+        }
+    }
 
 load_dotenv()
 

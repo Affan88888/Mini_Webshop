@@ -22,13 +22,12 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.detail || "Login failed");
+        alert(data.detail || "Signup failed.");
         return;
       }
-
-      const data = await response.json();
 
       setUser(data.user);
 

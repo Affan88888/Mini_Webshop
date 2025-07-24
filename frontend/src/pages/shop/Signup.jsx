@@ -6,6 +6,7 @@ import  { useAuth } from "../../contexts/AuthContext"
 const Signup = () => {
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -19,16 +20,15 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ email, password, role: "user"}),
+        body: JSON.stringify({ email, username, password, role: "user"}),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.detail || "Signup failed.");
+        alert(data.detail || "Signup failed.");
         return;
       }
-
-      const data = await response.json();
 
       setUser(data.user);
       navigate("/");
@@ -47,6 +47,17 @@ const Signup = () => {
       >
         <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
 
+        {/* Username input */}
+        <input
+          type="text"
+          placeholder="Username"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full px-3 py-2 mb-4 border rounded"
+        />
+
+        {/* Email input */}
         <input
           type="email"
           placeholder="Email"
@@ -56,6 +67,7 @@ const Signup = () => {
           className="w-full px-3 py-2 mb-4 border rounded"
         />
 
+        {/* Password input */}
         <input
           type="password"
           placeholder="Password"
