@@ -1,7 +1,11 @@
-from fastapi import APIRouter, HTTPException
-import json
-from pydantic import BaseModel
 import os
+import json
+
+from fastapi import APIRouter, HTTPException, Response
+from pydantic import BaseModel
+
+from utils.jwt_utils import create_jwt_token
+
 
 router = APIRouter()
 users_path = os.path.join("data", "users.json")
@@ -16,7 +20,7 @@ class SignupRequest(BaseModel):
     role: str = "user"  # 'user' je po deafultu
     
 @router.post("/login")
-def login_user(data: LoginRequest):
+def login_user(data: LoginRequest, response: Response):
     try:
         with open(users_path, "r") as f:
             users = json.load(f)
@@ -25,7 +29,17 @@ def login_user(data: LoginRequest):
 
     for user in users:
         if user["email"] == data.email and user["password"] == data.password:
-            return {"status": "success", "user": user}
+            token = create_jwt_token(data.email) # Napravio JWT token
+            # Setao JWT token unutar cookiea
+            response.set_cookie(
+                key = "access_token",
+                value = token,
+                httponly = True,
+                samesite = "Lax",
+                secure =  False, # Set to True if using HTTPS
+                max_age = 3600, # 1 sat
+            )
+            return {"status": "success", "user": {"email": user["email"], "role": user["role"]}}
 
     raise HTTPException(status_code=401, detail="Invalid email or password.")
 
