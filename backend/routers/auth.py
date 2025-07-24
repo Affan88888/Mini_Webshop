@@ -15,13 +15,13 @@ users_path = os.path.join("data", "users.json")
 class LoginRequest(BaseModel):
     email: str
     password: str
-    
+
 class SignupRequest(BaseModel):
     email: str
     username: str
     password: str
     role: str = "user"  # 'user' je po deafultu
-    
+
 @router.post("/login")
 def login_user(data: LoginRequest, response: Response):
     try:
@@ -32,7 +32,12 @@ def login_user(data: LoginRequest, response: Response):
 
     for user in users:
         if user["email"] == data.email and user["password"] == data.password:
-            token = create_jwt_token(data.email) # Napravio JWT token
+             # Napravio JWT token
+            token = create_jwt_token(
+                email=user["email"], 
+                username=user["username"],
+                role=user["role"]
+            )
             # Setao JWT token unutar cookiea
             response.set_cookie(
                 key = "access_token",
@@ -80,7 +85,14 @@ def signup_user(data: SignupRequest, response: Response):
     with open(users_path, "w") as f:
         json.dump(users, f, indent=2)
     
-    token = create_jwt_token(data.email) # Napravio token
+    # Napravio JWT Token
+    token = create_jwt_token(
+        email=new_user["email"], 
+        username=new_user["username"],
+        role=new_user["role"]
+    )
+    
+    # Setao JWT token unutar cookiea
     response.set_cookie(
         key="access_token",
         value=token,
@@ -111,7 +123,13 @@ def get_logged_in_user(request: Request):
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return {"user": {"email": payload["sub"]}}
+        return {
+            "user": {
+                "email": payload["sub"],
+                "username": payload["username"],
+                "role": payload["role"]
+            }
+        }
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 

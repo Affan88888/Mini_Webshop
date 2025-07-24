@@ -13,7 +13,7 @@ const Header = () => {
 
         {user ? (
           <>
-            <span className="mr-2 text-sm">Welcome, {user.email}</span>
+            <span className="mr-2 text-sm">Welcome, {user.username}</span>
             <button
               onClick={logout}
               className="px-4 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600"

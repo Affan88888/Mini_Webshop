@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         });
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user); // Primjer: { email: "x" }
+          setUser(data.user); // Primjer: { "email": "x" , "username": "y", "role": "z"}
         }
       } catch (err) {
         setUser(null); // U slučaju greške resetuje korisnika
