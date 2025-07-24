@@ -39,14 +39,14 @@ def login_user(data: LoginRequest, response: Response):
                 httponly = True,
                 samesite = "Lax",
                 secure =  False, # Set to True if using HTTPS
-                max_age = 3600, # 1 sat
+                max_age = 3600 # 1 sat
             )
             return {"status": "success", "user": {"email": user["email"], "role": user["role"]}}
 
     raise HTTPException(status_code=401, detail="Invalid email or password.")
 
 @router.post("/signup")
-def signup_user(data: SignupRequest):
+def signup_user(data: SignupRequest, response: Response):
     try:
         with open(users_path, "r") as f:
             users = json.load(f)
@@ -60,7 +60,7 @@ def signup_user(data: SignupRequest):
 
     new_user = {
         "email": data.email,
-        "password": data.password,
+        "password": data.password, # Should be hashed
         "role": data.role
     }
 
@@ -68,8 +68,17 @@ def signup_user(data: SignupRequest):
 
     with open(users_path, "w") as f:
         json.dump(users, f, indent=2)
-
-    return {"status": "success", "user": new_user}
+    
+    token = create_jwt_token(data.email) # Napravio token
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        secure=True,
+        samesite="Lax",
+        max_age= 3600 # 1 sat
+    )
+    return {"status": "success", "user": {"email": new_user["email"], "role": new_user["role"]}}
 
 load_dotenv()
 
