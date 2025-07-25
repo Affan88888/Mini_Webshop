@@ -1,60 +1,71 @@
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../config';
+import FilterBar from '../../components/FilterBar';
 
 const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false)
     const [filters, setFilters] = useState({
         name: "",
-        minPrice: "",
-        maxPrice: "",
-        minQuantity: "",
-        maxQuantity: "",
-        sortBy: "date",
+        min_price: "",
+        max_price: "",
+        min_quantity: "",
+        max_quantity: "",
+        sort_by: "date",
         order: "desc",
     });
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const params = new URLSearchParams();
-            Object.entries(filters).forEach(([key, value]) => {
-                if (value !== "") {
-                    params.append(key, value);
+            try {
+                setLoading(true);
+                const params = new URLSearchParams();
+                Object.entries(filters).forEach(([key, value]) => {
+                    if (value !== "") {
+                        params.append(key, value);
+                    }
+                });
+                
+                const response = await fetch(`${API_BASE_URL}/products?${params}`);
+                if (!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`)
                 }
-            });
-            
-            const response = await fetch(`${API_BASE_URL}/products?${params}`);
-            const data = await response.json();
-            setProducts(data);
+
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+            } finally {
+                setLoading(false)
+            }
         };
 
         fetchProducts();
     }, [filters]);
 
     const handleInputChange = (e) => {
-        setFilters({...filters, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        //Promijeni values od numeric fieldova iz stringa typea u float type
+        const numericFields = ["min_price", "max_price", "min_quantity", "max_quantity"];
+        const parsedValue = numericFields.includes(name) && value !== "" ? parseFloat(value) : value;
+
+        setFilters((prev) => ({ ...prev, [name]: parsedValue }))
     };
 
     return (
         <div className="p-6">
-        <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
+            <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
 
         {/* Filters */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-            <input name="name" placeholder="Search Name" onChange={handleInputChange} />
-            <input name="min_price" placeholder="Min Price" type="number" onChange={handleInputChange} />
-            <input name="max_price" placeholder="Max Price" type="number" onChange={handleInputChange} />
-            <input name="min_quantity" placeholder="Min Qty" type="number" onChange={handleInputChange} />
-            <input name="max_quantity" placeholder="Max Qty" type="number" onChange={handleInputChange} />
-            <select name="sort_by" onChange={handleInputChange}>
-                <option value="date">Date</option>
-                <option value="price">Price</option>
-                <option value="quantity">Quantity</option>
-            </select>
-            <select name="order" onChange={handleInputChange}>
-                <option value="desc">DESC</option>
-                <option value="asc">ASC</option>
-            </select>
+        <div>
+            <FilterBar filters={filters} onChange={handleInputChange}/>
         </div>
+
+        {/* Loading Indicator */}
+        {loading && (
+            <div className="my-4 font-semibold text-blue-500">Loading products...</div>
+        )}
 
         {/* Product List */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
