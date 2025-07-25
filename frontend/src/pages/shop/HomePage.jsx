@@ -55,19 +55,25 @@ const HomePage = () => {
   };
 
   return (
-    <div>
-      <FilterBar filters={filters} onChange={handleInputChange} />
-      <div className="p-4">
-        {loading ? (
-          <p>Loading products...</p>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
+    <div className="p-6">
+      <h1 className="mb-4 text-2xl font-bold"> Filter </h1>
+
+      {/* Filters */}
+      <div>
+          <FilterBar filters={filters} onChange={handleInputChange} />
       </div>
+
+      {/* Loading Indicator */}
+      {loading && (
+          <div className="my-4 font-semibold text-blue-500">Loading products...</div>
+      )}
+
+      {/* Product List */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
     </div>
   );
 };

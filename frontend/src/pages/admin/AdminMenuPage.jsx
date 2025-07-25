@@ -57,27 +57,27 @@ const AdminDashboard = () => {
         <div className="p-6">
             <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
 
-        {/* Filters */}
-        <div>
-            <FilterBar filters={filters} onChange={handleInputChange}/>
-        </div>
-
-        {/* Loading Indicator */}
-        {loading && (
-            <div className="my-4 font-semibold text-blue-500">Loading products...</div>
-        )}
-
-        {/* Product List */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-            <div key={product.id} className="p-4 border rounded shadow">
-                <h2 className="font-bold">{product.name}</h2>
-                <p>Price: ${product.price}</p>
-                <p>Quantity: {product.quantity}</p>
-                <p>Published: {new Date(product.date).toLocaleDateString()}</p>
+            {/* Filters */}
+            <div>
+                <FilterBar filters={filters} onChange={handleInputChange}/>
             </div>
-            ))}
-        </div>
+
+            {/* Loading Indicator */}
+            {loading && (
+                <div className="my-4 font-semibold text-blue-500">Loading products...</div>
+            )}
+
+            {/* Product List */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {products.map((product) => (
+                <div key={product.id} className="p-4 border rounded shadow">
+                    <h2 className="font-bold">{product.name}</h2>
+                    <p>Price: ${product.price}</p>
+                    <p>Quantity: {product.quantity}</p>
+                    <p>Published: {new Date(product.date).toLocaleDateString()}</p>
+                </div>
+                ))}
+            </div>
         </div>
     );
 }
