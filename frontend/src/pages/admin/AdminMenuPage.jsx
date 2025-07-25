@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { API_BASE_URL } from '../../config';
+import { useNavigate } from 'react-router-dom';
 import FilterBar from '../../components/FilterBar';
+import { API_BASE_URL } from '../../config';
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
+
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState({
         name: "",
         min_price: "",
@@ -25,7 +28,7 @@ const AdminDashboard = () => {
                         params.append(key, value);
                     }
                 });
-                
+
                 const response = await fetch(`${API_BASE_URL}/products?${params}`);
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`)
@@ -44,22 +47,43 @@ const AdminDashboard = () => {
     }, [filters]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-
-        //Promijeni values od numeric fieldova iz stringa typea u float type
-        const numericFields = ["min_price", "max_price", "min_quantity", "max_quantity"];
-        const parsedValue = numericFields.includes(name) && value !== "" ? parseFloat(value) : value;
-
-        setFilters((prev) => ({ ...prev, [name]: parsedValue }))
+        setFilters({ ...filters, [e.target.name]: e.target.value });
     };
 
+    const handleCreateClick = () => {
+        navigate('/create-product');
+    };
+
+    const handleOrdersClick = () => {
+        navigate('/created-orders')
+    }
+
     return (
-        <div className="p-6">
-            <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
+    <div className="p-6">
+            {/* Header with title and right-aligned buttons */}
+            <div className="flex items-center justify-between mb-6">
+                <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+
+                <div className="space-x-4">
+                <button
+                    onClick={handleCreateClick}
+                    className="px-4 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+                >
+                    Add New Product
+                </button>
+
+                <button
+                    onClick={handleOrdersClick}
+                    className="px-4 py-2 text-white transition bg-green-600 rounded hover:bg-green-700"
+                >
+                    Check Orders
+                </button>
+                </div>
+            </div>
 
             {/* Filters */}
             <div>
-                <FilterBar filters={filters} onChange={handleInputChange}/>
+                <FilterBar filters={filters} onChange={handleInputChange} />
             </div>
 
             {/* Loading Indicator */}
@@ -70,16 +94,16 @@ const AdminDashboard = () => {
             {/* Product List */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {products.map((product) => (
-                <div key={product.id} className="p-4 border rounded shadow">
-                    <h2 className="font-bold">{product.name}</h2>
-                    <p>Price: ${product.price}</p>
-                    <p>Quantity: {product.quantity}</p>
-                    <p>Published: {new Date(product.date).toLocaleDateString()}</p>
-                </div>
+                    <div key={product.id} className="p-4 border rounded shadow">
+                        <h2 className="font-bold">{product.name}</h2>
+                        <p>Price: ${product.price}</p>
+                        <p>Quantity: {product.quantity}</p>
+                        <p>Published: {new Date(product.date).toLocaleDateString()}</p>
+                    </div>
                 ))}
             </div>
         </div>
     );
-}
+};
 
 export default AdminDashboard;
