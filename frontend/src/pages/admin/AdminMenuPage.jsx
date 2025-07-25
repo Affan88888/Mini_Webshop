@@ -47,8 +47,14 @@ const AdminDashboard = () => {
     }, [filters]);
 
     const handleInputChange = (e) => {
-        setFilters({ ...filters, [e.target.name]: e.target.value });
-    };
+      const { name, value } = e.target;
+
+      //Promijeni values od numeric fieldova iz stringa typea u float type
+      const numericFields = ["min_price", "max_price", "min_quantity", "max_quantity"];
+      const parsedValue = numericFields.includes(name) && value !== "" ? parseFloat(value) : value;
+
+      setFilters((prev) => ({ ...prev, [name]: parsedValue }));
+  };
 
     const handleCreateClick = () => {
         navigate('/create-product');

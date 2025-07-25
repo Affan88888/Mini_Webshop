@@ -1,12 +1,15 @@
 import json
 import os
+import uuid
 from datetime import datetime
 from typing import Optional, List
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, UploadFile, File, Form
 
 router = APIRouter()
-products_path = os.path.join("data", "products.json")
+PRODUCTS_PATH = os.path.join("data", "products.json")
+IMAGES_FOLDER = os.path.join("data", "images")
+os.makedirs(IMAGES_FOLDER, exist_ok=True)
 
 @router.get("/products")
 def get_products(
@@ -19,7 +22,7 @@ def get_products(
     order: Optional[str] = Query("desc")  # "asc" ili "desc"
 ):
     try:
-        with open(products_path, "r") as f:
+        with open(PRODUCTS_PATH, "r") as f:
             products=json.load(f)
     except FileNotFoundError:
         return []
@@ -43,23 +46,13 @@ def get_products(
     
     return products
 
-@router.get("/products2")
-def get_products():
-    """
-    Returna listu svih dostupnih produkata.
-    Loada produkte iz 'data/products.json'.
-    """
-    with open(products_path, "r") as f:
-        products = json.load(f)
-    return products
-
 @router.get("/products/{product_id}")
 def get_product(product_id: int):
     """
     Returna produkt sa odgovarajucim ID-om.
     Loada produkte iz 'data/products.json'.
     """
-    with open(products_path, "r") as f:
+    with open(PRODUCTS_PATH, "r") as f:
         products = json.load(f)
         
     #Pretrazi produkt sa odgovarajucim ID=om
@@ -69,3 +62,40 @@ def get_product(product_id: int):
         
     #Ako produkt nije pronadjen, 404 error se prikaze
     raise HTTPException(status_code=404, detail="Product not found")
+
+@router.post("/create-product")
+async def create_product(
+    name: str =  Form(...),
+    description: str = Form(...),
+    quantity: int = Form(...),
+    price: float = Form(...),
+    image: UploadFile = File(...)
+):
+    product_id = str(uuid.uuid4())
+    image_path = os.path.join(IMAGES_FOLDER, f"{product_id}_{image.filename}")
+
+    with open(image_path, "wb") as f:
+        f.write(await image.read())
+    
+    new_product = {
+        "id": product_id,
+        "name": name,
+        "description": description,
+        "quantity": quantity,
+        "price": price,
+        "image_url": image_path.replace("\\", "/"),
+        "date": datetime.now().isoformat(timespec="seconds")
+    }
+
+    try:
+        with open(PRODUCTS_PATH, "r") as f:
+            products = json.load(f)
+    except FileNotFoundError:
+        products = []
+    
+    products.append(new_product)
+
+    with open(PRODUCTS_PATH, "w") as f:
+        json.dump(products, f, indent=4)
+    
+    return {"message": "Product created", "product": new_product}

@@ -8,6 +8,7 @@ import OrderPage from './pages/shop/OrderPage';
 import Login from './pages/shop/Login';
 import Signup from './pages/shop/Signup';
 import AdminDashboard from './pages/admin/AdminMenuPage';
+import CreateProductPage from './pages/admin/CreateProductPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/admin" element={<AdminDashboard />}/>
+        <Route path="/create-product" element={<CreateProductPage />}/>
       </Routes>
 
     <Footer />

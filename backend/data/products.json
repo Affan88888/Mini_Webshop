@@ -1,29 +1,56 @@
 [
-  {
-    "id": 1,
-    "name": "Sample Product",
-    "description": "This is a product",
-    "price": 9.99,
-    "image_url": "https://via.placeholder.com/150",
-    "quantity": 10,
-    "date": "2025-07-19T12:00:00"
-  },
     {
-    "id": 2,
-    "name": "Sample Product2",
-    "description": "This is a product2",
-    "price": 19.99,
-    "image_url": "https://via.placeholder.com/150",
-    "quantity": 3,
-    "date": "2025-07-19T12:00:00"
-  },
-      {
-    "id": 3,
-    "name": "Sample Product2",
-    "description": "This is a product3",
-    "price": 29.99,
-    "image_url": "https://via.placeholder.com/150",
-    "quantity": 5,
-    "date": "2025-07-19T12:00:00"
-  }
+        "id": "d8f09005-538d-4ab5-9200-95e2e45b6375",
+        "name": "monitor",
+        "description": "AOC monitor 27inch",
+        "quantity": 2,
+        "price": 350.0,
+        "image_url": "data/images/d8f09005-538d-4ab5-9200-95e2e45b6375_monitor.jpg",
+        "date": "2025-07-25T18:39:42"
+    },
+    {
+        "id": "be95d85f-c172-4f7d-be55-f8b0fc5f0e1a",
+        "name": "ruksak",
+        "description": "plavi ruksak",
+        "quantity": 6,
+        "price": 120.0,
+        "image_url": "data/images/be95d85f-c172-4f7d-be55-f8b0fc5f0e1a_ruksak.jpg",
+        "date": "2025-07-25T18:40:09"
+    },
+    {
+        "id": "0270267b-3d1d-41bc-85fc-996f1e41b4cf",
+        "name": "ventilator",
+        "description": "bijeli ventilator",
+        "quantity": 9,
+        "price": 65.0,
+        "image_url": "data/images/0270267b-3d1d-41bc-85fc-996f1e41b4cf_ventilator.jpg",
+        "date": "2025-07-25T18:40:27"
+    },
+    {
+        "id": "30cd11db-da31-43d5-9d2a-375ad7102f3b",
+        "name": "tastatura",
+        "description": "mehanicka AULA tastatura",
+        "quantity": 4,
+        "price": 199.0,
+        "image_url": "data/images/30cd11db-da31-43d5-9d2a-375ad7102f3b_tastatura.jpg",
+        "date": "2025-07-25T18:40:55"
+    },
+    {
+        "id": "7ea9cb9e-3785-43be-beb7-94d9c6cb83d2",
+        "name": "stolica",
+        "description": "gejmerska stolica",
+        "quantity": 5,
+        "price": 180.0,
+        "image_url": "data/images/7ea9cb9e-3785-43be-beb7-94d9c6cb83d2_stolica.jpg",
+        "date": "2025-07-25T19:03:25"
+    },
+    {
+        "id": "5df5da26-cccf-4fbd-8917-0ffcd158d9e5",
+        "name": "laptop",
+        "description": "AULA laptop",
+        "quantity": 6,
+        "price": 1600.0,
+        "image_url": "data/images/5df5da26-cccf-4fbd-8917-0ffcd158d9e5_laptop.jpg",
+        "date": "2025-07-25T19:09:44"
+    }
 ]

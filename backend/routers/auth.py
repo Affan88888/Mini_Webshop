@@ -10,7 +10,7 @@ from utils.jwt_utils import create_jwt_token
 
 
 router = APIRouter()
-users_path = os.path.join("data", "users.json")
+USERS_PATH = os.path.join("data", "users.json")
 
 class LoginRequest(BaseModel):
     email: str
@@ -25,7 +25,7 @@ class SignupRequest(BaseModel):
 @router.post("/login")
 def login_user(data: LoginRequest, response: Response):
     try:
-        with open(users_path, "r") as f:
+        with open(USERS_PATH, "r") as f:
             users = json.load(f)
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Users file not found.")
@@ -61,7 +61,7 @@ def login_user(data: LoginRequest, response: Response):
 @router.post("/signup")
 def signup_user(data: SignupRequest, response: Response):
     try:
-        with open(users_path, "r") as f:
+        with open(USERS_PATH, "r") as f:
             users = json.load(f)
     except FileNotFoundError:
         users = []
@@ -82,7 +82,7 @@ def signup_user(data: SignupRequest, response: Response):
 
     users.append(new_user)
 
-    with open(users_path, "w") as f:
+    with open(USERS_PATH, "w") as f:
         json.dump(users, f, indent=2)
     
     # Napravio JWT Token
