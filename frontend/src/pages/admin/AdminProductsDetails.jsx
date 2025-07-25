@@ -13,16 +13,16 @@ const AdminProductDetails = () => {
         description: '',
         price: '',
         quantity: '',
-        image_url: '',
     });
+    const [imageFile, setImageFile] = useState(null); // za učitavanje nove slike
 
-    // Fetch product details
+    // Dobivanje detalja o proizvodu
     useEffect(() => {
         const fetchProduct = async () => {
             setLoading(true);
             try {
                 const response = await fetch(`${API_BASE_URL}/products/${productId}`);
-                if (!response.ok) throw new Error("Failed to fetch product");
+                if (!response.ok) throw new Error("Neuspješno dohvatanje proizvoda");
 
                 const data = await response.json();
                 setProduct(data);
@@ -31,7 +31,6 @@ const AdminProductDetails = () => {
                     description: data.description || '',
                     price: data.price || '',
                     quantity: data.quantity || '',
-                    image_url: data.image_url || '',
                 });
             } catch (err) {
                 setError(err.message);
@@ -48,34 +47,49 @@ const AdminProductDetails = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    // Obrada slika
+    const handleImageChange = (e) => {
+        setImageFile(e.target.files[0]);
+    };
+
+    // Slanje izmjena
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name);
+        formDataToSend.append("description", formData.description);
+        formDataToSend.append("price", formData.price);
+        formDataToSend.append("quantity", formData.quantity);
+
+        // Ako je nova slika odabrana, dodaj u formData
+        if (imageFile) {
+            formDataToSend.append("image", imageFile);
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+                body: formDataToSend,
             });
 
-            if (!response.ok) throw new Error('Failed to update product');
-            alert('Product updated successfully');
-            navigate('/admin'); // admin dashboard
+            if (!response.ok) throw new Error('Neuspješno ažuriranje proizvoda');
+            alert('Proizvod uspješno ažuriran');
+            navigate('/admin');
         } catch (err) {
             alert(err.message);
         }
     };
 
-    if (loading) return <div className="p-4 text-blue-500">Loading product details...</div>;
-    if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
+    if (loading) return <div className="p-4 text-blue-500">Učitavanje podataka o proizvodu...</div>;
+    if (error) return <div className="p-4 text-red-500">Greška: {error}</div>;
 
     return (
         <div className="max-w-xl p-6 mx-auto mt-10 bg-white border rounded shadow">
-            <h2 className="mb-4 text-2xl font-semibold">Edit Product</h2>
+            <h2 className="mb-4 text-2xl font-semibold">Uredi Proizvod</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block mb-1 font-medium">Name</label>
+                    <label className="block mb-1 font-medium">Naziv</label>
                     <input
                         type="text"
                         name="name"
@@ -86,7 +100,7 @@ const AdminProductDetails = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Description</label>
+                    <label className="block mb-1 font-medium">Opis</label>
                     <textarea
                         name="description"
                         value={formData.description}
@@ -96,7 +110,7 @@ const AdminProductDetails = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Price ($)</label>
+                    <label className="block mb-1 font-medium">Cijena (€)</label>
                     <input
                         type="number"
                         name="price"
@@ -108,7 +122,7 @@ const AdminProductDetails = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Quantity</label>
+                    <label className="block mb-1 font-medium">Količina</label>
                     <input
                         type="number"
                         name="quantity"
@@ -118,13 +132,24 @@ const AdminProductDetails = () => {
                         required
                     />
                 </div>
+
+                {product?.image_url && (
+                    <div>
+                    <label className="block mb-1 font-medium">Trenutna slika</label>
+                    <img
+                        src={`${API_BASE_URL}/${product.image_url}`}
+                        alt="Trenutna slika"
+                        className="w-32 h-auto rounded"
+                    />
+                    </div>)}
+                
                 <div>
-                    <label className="block mb-1 font-medium">Image URL</label>
+                    <label className="block mb-1 font-medium">Nova slika (opcionalno)</label>
                     <input
-                        type="text"
-                        name="image_url"
-                        value={formData.image_url}
-                        onChange={handleChange}
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
                         className="w-full p-2 border rounded"
                     />
                 </div>
@@ -133,7 +158,7 @@ const AdminProductDetails = () => {
                     type="submit"
                     className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
                 >
-                    Save Changes
+                    Spasi Promjene
                 </button>
             </form>
         </div>

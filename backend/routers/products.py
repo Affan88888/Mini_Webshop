@@ -152,3 +152,62 @@ def delete_product(product_id: str):
 
     # Vraćanje poruke o uspješnom brisanju
     return {"message": f"Proizvod sa ID-em {product_id} je obrisan."}
+
+@router.put("/products/{product_id}")
+async def update_product(
+    product_id: str,
+    name: Optional[str] = Form(None),
+    description: Optional[str] = Form(None),
+    quantity: Optional[int] = Form(None),
+    price: Optional[float] = Form(None),
+    image: Optional[UploadFile] = File(None)
+):
+    """
+    Ažurira podatke o proizvodu sa zadanim ID-em. Moguće je ažurirati ime, opis, količinu, cijenu i sliku.
+    Ako proizvod ne postoji, vraća se greška 404.
+    """
+    try:
+        # Učitavanje postojećih proizvoda iz fajla
+        with open(PRODUCTS_PATH, "r") as f:
+            products = json.load(f)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Nema pronađenih proizvoda")
+
+    # Traženje proizvoda po ID-u
+    product_to_update = None
+    for product in products:
+        if product["id"] == product_id:
+            product_to_update = product
+            break
+
+    if not product_to_update:
+        raise HTTPException(status_code=404, detail="Proizvod nije pronađen")
+
+    # Ažuriranje vrijednosti ako su nove vrijednosti dostavljene
+    if name is not None:
+        product_to_update["name"] = name
+    if description is not None:
+        product_to_update["description"] = description
+    if quantity is not None:
+        product_to_update["quantity"] = quantity
+    if price is not None:
+        product_to_update["price"] = price
+
+    # Ako je dostavljena nova slika, prethodna se briše i nova se sprema
+    if image:
+        # Brisanje stare slike ako postoji
+        old_image_path = product_to_update.get("image_url", "")
+        if old_image_path and os.path.exists(old_image_path):
+            os.remove(old_image_path)
+
+        # Spremanje nove slike
+        new_image_path = os.path.join(IMAGES_FOLDER, f"{product_id}_{image.filename}")
+        with open(new_image_path, "wb") as f:
+            f.write(await image.read())
+        product_to_update["image_url"] = new_image_path.replace("\\", "/")
+
+    # Spremanje ažurirane liste proizvoda
+    with open(PRODUCTS_PATH, "w") as f:
+        json.dump(products, f, indent=4)
+
+    return {"message": f"Proizvod sa ID-em {product_id} je uspješno ažuriran.", "product": product_to_update}

@@ -46,11 +46,11 @@
     },
     {
         "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
-        "name": "laptop",
-        "description": "AULA HP laptop",
-        "quantity": 4,
-        "price": 1700.0,
-        "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop.jpg",
+        "name": "laptop3545",
+        "description": "HP Omen Laptop",
+        "quantity": 3,
+        "price": 1800.0,
+        "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop2.png",
         "date": "2025-07-25T20:36:16"
     }
 ]
