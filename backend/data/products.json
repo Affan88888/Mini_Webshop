@@ -6,7 +6,7 @@
     "price": 9.99,
     "image_url": "https://via.placeholder.com/150",
     "quantity": 10,
-    "publication_date": "2025-07-19T12:00:00"
+    "date": "2025-07-19T12:00:00"
   },
     {
     "id": 2,
@@ -15,7 +15,7 @@
     "price": 19.99,
     "image_url": "https://via.placeholder.com/150",
     "quantity": 3,
-    "publication_date": "2025-07-19T12:00:00"
+    "date": "2025-07-19T12:00:00"
   },
       {
     "id": 3,
@@ -24,6 +24,6 @@
     "price": 29.99,
     "image_url": "https://via.placeholder.com/150",
     "quantity": 5,
-    "publication_date": "2025-07-19T12:00:00"
+    "date": "2025-07-19T12:00:00"
   }
 ]
