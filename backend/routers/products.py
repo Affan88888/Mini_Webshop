@@ -18,16 +18,19 @@ def get_products(
     max_price: Optional[float] = Query(None),
     min_quantity: Optional[int] = Query(None),
     max_quantity: Optional[int] = Query(None),
-    sort_by: Optional[str] = Query("date"),  # "date", "price", "quantity"
-    order: Optional[str] = Query("desc")  # "asc" ili "desc"
+    sort_by: Optional[str] = Query("date"),  # sortiranje po: "date", "price", "quantity"
+    order: Optional[str] = Query("desc")  # redoslijed sortiranja: "asc" ili "desc"
 ):
+    """
+    Vraća listu svih proizvoda sa opcijama filtriranja i sortiranja.
+    """
     try:
         with open(PRODUCTS_PATH, "r") as f:
-            products=json.load(f)
+            products = json.load(f)
     except FileNotFoundError:
         return []
     
-    #Filtering
+    # Filtriranje po zadanim parametrima
     if name:
         products = [p for p in products if name.lower() in p["name"].lower()]
     if min_price is not None:
@@ -39,7 +42,7 @@ def get_products(
     if max_quantity is not None:
         products = [p for p in products if p["quantity"] <= max_quantity]
     
-    #Sorting
+    # Sortiranje rezultata po odabranom kriteriju
     reverse = True if order == "desc" else False
     if sort_by in ["date", "price", "quantity"]:
         products.sort(key=lambda x: x.get(sort_by, 0), reverse=reverse)
@@ -49,34 +52,41 @@ def get_products(
 @router.get("/products/{product_id}")
 def get_product(product_id: str):
     """
-    Returna produkt sa odgovarajucim ID-om.
-    Loada produkte iz 'data/products.json'.
+    Vraća jedan proizvod sa odgovarajućim ID-om.
+    Ako proizvod nije pronađen, vraća 404 grešku.
     """
     with open(PRODUCTS_PATH, "r") as f:
         products = json.load(f)
-        
-    #Pretrazi produkt sa odgovarajucim ID=om
+    
+    # Pretraga proizvoda po ID-u
     for product in products:
         if product["id"] == product_id:
             return product
-        
-    #Ako produkt nije pronadjen, 404 error se prikaze
-    raise HTTPException(status_code=404, detail="Product not found")
+    
+    # Ako proizvod nije pronađen
+    raise HTTPException(status_code=404, detail="Proizvod nije pronađen")
 
 @router.post("/create-product")
 async def create_product(
-    name: str =  Form(...),
+    name: str = Form(...),
     description: str = Form(...),
     quantity: int = Form(...),
     price: float = Form(...),
     image: UploadFile = File(...)
 ):
+    """
+    Kreira novi proizvod i sprema ga u JSON fajl.
+    Slika se također sprema na disk.
+    """
+    # Generisanje jedinstvenog ID-a i putanje slike
     product_id = str(uuid.uuid4())
     image_path = os.path.join(IMAGES_FOLDER, f"{product_id}_{image.filename}")
 
+    # Spremanje slike na disk
     with open(image_path, "wb") as f:
         f.write(await image.read())
     
+    # Kreiranje novog proizvoda
     new_product = {
         "id": product_id,
         "name": name,
@@ -87,15 +97,58 @@ async def create_product(
         "date": datetime.now().isoformat(timespec="seconds")
     }
 
+    # Čitanje postojećih proizvoda ako postoje
     try:
         with open(PRODUCTS_PATH, "r") as f:
             products = json.load(f)
     except FileNotFoundError:
         products = []
     
+    # Dodavanje novog proizvoda u listu
     products.append(new_product)
 
+    # Spremanje ažurirane liste proizvoda
     with open(PRODUCTS_PATH, "w") as f:
         json.dump(products, f, indent=4)
     
-    return {"message": "Product created", "product": new_product}
+    return {"message": "Proizvod je uspješno kreiran", "product": new_product}
+
+@router.delete("/products/{product_id}")
+def delete_product(product_id: str):
+    """
+    Briše proizvod sa odgovarajucim ID-u iz JSON fajla i briše sliku proizvoda ako postoji.
+    """
+    try:
+        # Pokušaj učitavanja postojeće liste proizvoda iz fajla
+        with open(PRODUCTS_PATH, "r") as f:
+            products = json.load(f)
+    except FileNotFoundError:
+        # Ako fajl ne postoji, vraća se greška da nema nijednog proizvoda
+        raise HTTPException(status_code=404, detail="Nema pronađenih proizvoda")
+
+    product_to_delete = None
+
+    # Pronalaženje proizvoda koji se treba obrisati po ID-u
+    for product in products:
+        if product["id"] == product_id:
+            product_to_delete = product
+            break
+
+    # Ako proizvod nije pronađen, vraća se greška
+    if not product_to_delete:
+        raise HTTPException(status_code=404, detail="Proizvod nije pronađen")
+
+    # Uklanjanje proizvoda iz liste
+    products.remove(product_to_delete)
+
+    # Brisanje slike ako postoji i ako je putanja validna
+    image_path = product_to_delete.get("image_url", "")
+    if image_path and os.path.exists(image_path):
+        os.remove(image_path)
+
+    # Spremanje nove liste proizvoda nazad u fajl
+    with open(PRODUCTS_PATH, "w") as f:
+        json.dump(products, f, indent=4)
+
+    # Vraćanje poruke o uspješnom brisanju
+    return {"message": f"Proizvod sa ID-em {product_id} je obrisan."}

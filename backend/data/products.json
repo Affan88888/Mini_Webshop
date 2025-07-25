@@ -27,15 +27,6 @@
         "date": "2025-07-25T18:40:27"
     },
     {
-        "id": "30cd11db-da31-43d5-9d2a-375ad7102f3b",
-        "name": "tastatura",
-        "description": "mehanicka AULA tastatura",
-        "quantity": 4,
-        "price": 199.0,
-        "image_url": "data/images/30cd11db-da31-43d5-9d2a-375ad7102f3b_tastatura.jpg",
-        "date": "2025-07-25T18:40:55"
-    },
-    {
         "id": "7ea9cb9e-3785-43be-beb7-94d9c6cb83d2",
         "name": "stolica",
         "description": "gejmerska stolica",
@@ -45,12 +36,21 @@
         "date": "2025-07-25T19:03:25"
     },
     {
-        "id": "5df5da26-cccf-4fbd-8917-0ffcd158d9e5",
+        "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
+        "name": "tastatura",
+        "description": "AULA mehanicka tastatura",
+        "quantity": 12,
+        "price": 160.0,
+        "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
+        "date": "2025-07-25T20:33:06"
+    },
+    {
+        "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
         "name": "laptop",
-        "description": "AULA laptop",
-        "quantity": 6,
-        "price": 1600.0,
-        "image_url": "data/images/5df5da26-cccf-4fbd-8917-0ffcd158d9e5_laptop.jpg",
-        "date": "2025-07-25T19:09:44"
+        "description": "AULA HP laptop",
+        "quantity": 4,
+        "price": 1700.0,
+        "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop.jpg",
+        "date": "2025-07-25T20:36:16"
     }
 ]
