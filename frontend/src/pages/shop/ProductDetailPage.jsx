@@ -28,22 +28,22 @@ const ProductDetailPage = () => {
     if (!product) {
         return <p className="p-4">Loading product...</p>
     }
-
+    console.log(product)
     return (
         <div>
             <div className="p-8">
                 <img 
-                    src={product.imageUrl} 
+                    src={`${API_BASE_URL}/${product.image_url}`} 
                     alt={product.name} 
-                    className="w-64 h-64 object-cover mb-4" 
+                    className="object-cover w-64 h-64 mb-4" 
                 />
-                <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-                <p className="text-gray-700 mb-4">{product.description}</p>
+                <h1 className="mb-2 text-2xl font-bold">{product.name}</h1>
+                <p className="mb-4 text-gray-700">{product.description}</p>
                 <p className="text-xl font-semibold">{product.price}</p>
                 <p className="text-sm text-gray-500">Available: {product.quantity}</p>
                 <button
                     onClick={() => addToCart(product)}
-                    className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    className="px-4 py-2 mt-4 text-white bg-blue-600 rounded hover:bg-blue-700">
                     Add to Cart
                 </button>
             </div>

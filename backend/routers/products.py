@@ -47,7 +47,7 @@ def get_products(
     return products
 
 @router.get("/products/{product_id}")
-def get_product(product_id: int):
+def get_product(product_id: str):
     """
     Returna produkt sa odgovarajucim ID-om.
     Loada produkte iz 'data/products.json'.
