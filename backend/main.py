@@ -7,6 +7,7 @@ import uvicorn
 
 from routers import products
 from routers import auth
+from routers import orders
 
 app = FastAPI()
 
@@ -18,10 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(products.router)
-app.include_router(auth.router)
+app.include_router(products.products_router)
+app.include_router(auth.auth_router)
+app.include_router(orders.orders_router)
 
-# Serve 'data/images' at '/data/images' URL path
+# Serve-a 'data/images' na '/data/images' URL path-u
 app.mount("/data/images", StaticFiles(directory=os.path.join("data", "images")), name="images")
 
 if __name__ == "__main__":

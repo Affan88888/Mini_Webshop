@@ -5,11 +5,13 @@ import HomePage from "./pages/shop/HomePage";
 import ProductDetailPage from "./pages/shop/ProductDetailPage";
 import CartPage from "./pages/shop/CartPage";
 import OrderPage from './pages/shop/OrderPage';
+import OrderConfirmation from "./pages/shop/OrderConfirmation";
 import Login from './pages/shop/Login';
 import Signup from './pages/shop/Signup';
 import AdminDashboard from './pages/admin/AdminMenuPage';
 import CreateProductPage from './pages/admin/CreateProductPage';
 import AdminProductDetails from './pages/admin/AdminProductsDetails';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetailPage />}/>
         <Route path="/cart" element={<CartPage />}/>
         <Route path="/order" element={<OrderPage />}/>
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/admin" element={<AdminDashboard />}/>

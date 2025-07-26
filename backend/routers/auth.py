@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 from utils.jwt_utils import create_jwt_token
 
-router = APIRouter()
+auth_router = APIRouter()
 USERS_PATH = os.path.join("data", "users.json")
 
 # Model podataka za login zahtjev
@@ -23,7 +23,7 @@ class SignupRequest(BaseModel):
     password: str
     role: str = "user"  # 'user' je po defaultu
 
-@router.post("/login")
+@auth_router.post("/login")
 def login_user(data: LoginRequest, response: Response):
     """
     Prijavljuje korisnika provjerom emaila i lozinke, te postavlja JWT token u kolačić.
@@ -67,7 +67,7 @@ def login_user(data: LoginRequest, response: Response):
     # Ako podaci nisu tačni, vraća se greška
     raise HTTPException(status_code=401, detail="Neispravan email ili lozinka.")
 
-@router.post("/signup")
+@auth_router.post("/signup")
 def signup_user(data: SignupRequest, response: Response):
     """
     Registruje novog korisnika i postavlja JWT token u kolačić.
@@ -134,7 +134,7 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
-@router.get("/check-auth")
+@auth_router.get("/check-auth")
 def get_logged_in_user(request: Request):
     """
     Provjerava da li je korisnik prijavljen pomoću JWT tokena iz kolačića.
@@ -158,7 +158,7 @@ def get_logged_in_user(request: Request):
         # Ako token nije validan
         raise HTTPException(status_code=401, detail="Neispravan token.")
 
-@router.post("/logout")
+@auth_router.post("/logout")
 def logout_user(response: Response):
     """
     Odjavljuje korisnika brisanjem JWT tokena iz kolačića.

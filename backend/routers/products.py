@@ -6,12 +6,13 @@ from typing import Optional, List
 
 from fastapi import APIRouter, HTTPException, Query, UploadFile, File, Form
 
-router = APIRouter()
+products_router = APIRouter()
+
 PRODUCTS_PATH = os.path.join("data", "products.json")
 IMAGES_FOLDER = os.path.join("data", "images")
 os.makedirs(IMAGES_FOLDER, exist_ok=True)
 
-@router.get("/products")
+@products_router.get("/products")
 def get_products(
     name: Optional[str] = Query(None),
     min_price: Optional[float] = Query(None),
@@ -49,7 +50,7 @@ def get_products(
     
     return products
 
-@router.get("/products/{product_id}")
+@products_router.get("/products/{product_id}")
 def get_product(product_id: str):
     """
     Vraća jedan proizvod sa odgovarajućim ID-om.
@@ -66,7 +67,7 @@ def get_product(product_id: str):
     # Ako proizvod nije pronađen
     raise HTTPException(status_code=404, detail="Proizvod nije pronađen")
 
-@router.post("/create-product")
+@products_router.post("/create-product")
 async def create_product(
     name: str = Form(...),
     description: str = Form(...),
@@ -113,7 +114,7 @@ async def create_product(
     
     return {"message": "Proizvod je uspješno kreiran", "product": new_product}
 
-@router.delete("/products/{product_id}")
+@products_router.delete("/products/{product_id}")
 def delete_product(product_id: str):
     """
     Briše proizvod sa odgovarajucim ID-u iz JSON fajla i briše sliku proizvoda ako postoji.
@@ -153,7 +154,7 @@ def delete_product(product_id: str):
     # Vraćanje poruke o uspješnom brisanju
     return {"message": f"Proizvod sa ID-em {product_id} je obrisan."}
 
-@router.put("/products/{product_id}")
+@products_router.put("/products/{product_id}")
 async def update_product(
     product_id: str,
     name: Optional[str] = Form(None),

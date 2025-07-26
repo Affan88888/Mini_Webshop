@@ -1,0 +1,100 @@
+[
+    {
+        "id": "f53624bb-c894-4a75-be98-ccbfada74f66",
+        "customer": {
+            "name": "Affan ",
+            "surname": "Kapidzic",
+            "address": "Provare 15"
+        },
+        "items": [
+            {
+                "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
+                "name": "laptop3545",
+                "description": "HP Omen Laptop",
+                "quantity": 3,
+                "price": 1800,
+                "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop2.png",
+                "date": "2025-07-25T20:36:16"
+            },
+            {
+                "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
+                "name": "tastatura",
+                "description": "AULA mehanicka tastatura",
+                "quantity": 1,
+                "price": 160,
+                "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
+                "date": "2025-07-25T20:33:06"
+            }
+        ],
+        "timestamp": "2025-07-25T23:27:23.170Z"
+    },
+    {
+        "id": "69aa3791-f080-4f26-806b-cdbf3557e6f4",
+        "customer": {
+            "name": "Tarik",
+            "surname": "Ibreljic",
+            "address": "Safeta Pasalica 56"
+        },
+        "items": [
+            {
+                "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
+                "name": "tastatura",
+                "description": "AULA mehanicka tastatura",
+                "quantity": 1,
+                "price": 160,
+                "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
+                "date": "2025-07-25T20:33:06"
+            }
+        ],
+        "timestamp": "2025-07-25T23:29:16.681Z"
+    },
+    {
+        "id": "3412645f-a5ad-460b-9517-8816bd846ed6",
+        "customer": {
+            "name": "Hana",
+            "surname": "Kapidzic",
+            "address": "sarajevo"
+        },
+        "items": [
+            {
+                "id": "be95d85f-c172-4f7d-be55-f8b0fc5f0e1a",
+                "name": "ruksak",
+                "description": "plavi ruksak",
+                "quantity": 1,
+                "price": 120,
+                "image_url": "data/images/be95d85f-c172-4f7d-be55-f8b0fc5f0e1a_ruksak.jpg",
+                "date": "2025-07-25T18:40:09"
+            },
+            {
+                "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
+                "name": "laptop3545",
+                "description": "HP Omen Laptop",
+                "quantity": 1,
+                "price": 1800,
+                "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop2.png",
+                "date": "2025-07-25T20:36:16"
+            }
+        ],
+        "timestamp": "2025-07-25T23:30:20.337Z"
+    },
+    {
+        "id": "0c33315e-f447-4e17-9d4d-f69ee9619000",
+        "customer": {
+            "name": "affan",
+            "surname": "kapidzic",
+            "address": "Provare 15"
+        },
+        "items": [
+            {
+                "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
+                "name": "tastatura",
+                "description": "AULA mehanicka tastatura",
+                "quantity": 1,
+                "price": 160,
+                "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
+                "date": "2025-07-25T20:33:06"
+            }
+        ],
+        "timestamp": "2025-07-26T13:12:02.277Z"
+    }
+]
