@@ -32,8 +32,8 @@ const AdminProductDetailsPage = () => {
                     price: data.price || '',
                     quantity: data.quantity || '',
                 });
-            } catch (err) {
-                setError(err.message);
+            } catch (error) {
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -76,8 +76,8 @@ const AdminProductDetailsPage = () => {
             if (!response.ok) throw new Error('Neuspješno ažuriranje proizvoda');
             alert('Proizvod uspješno ažuriran');
             navigate('/admin');
-        } catch (err) {
-            alert(err.message);
+        } catch (error) {
+            alert(error.message);
         }
     };
 

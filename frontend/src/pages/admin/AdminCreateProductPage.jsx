@@ -42,8 +42,8 @@ const AdminCreateProductPage = () => {
       } else {
         console.error('Failed to create product');
       }
-    } catch (err) {
-      console.error('Error:', err);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
