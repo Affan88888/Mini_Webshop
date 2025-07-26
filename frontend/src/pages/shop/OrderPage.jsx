@@ -19,7 +19,7 @@ const OrderPage = () => {
             timestamp: new Date().toISOString()
         };
 
-        const res = await fetch(`${API_BASE_URL}/api/orders`, {
+        const res = await fetch(`${API_BASE_URL}/create-order`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(order)
