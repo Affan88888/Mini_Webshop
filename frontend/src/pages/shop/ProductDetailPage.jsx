@@ -28,7 +28,7 @@ const ProductDetailPage = () => {
     if (!product) {
         return <p className="p-4">Loading product...</p>
     }
-    console.log(product)
+    
     return (
         <div>
             <div className="p-8">

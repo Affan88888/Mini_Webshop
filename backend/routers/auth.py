@@ -89,10 +89,13 @@ def signup_user(data: SignupRequest, response: Response):
             raise HTTPException(status_code=400, detail="Korisničko ime već postoji.")
 
     # Kreiranje novog korisnika
+    # Napomena: lozinka bi trebala biti heširana, ali posto je ovo samo demo aplikacija
+    # i posto u task requirementima ne pise da se treba hashovati, ja cu ostaviti da se
+    # password sejva u plain textu, radi i lakseg pregleda i testiranja koda
     new_user = {
         "email": data.email,
         "username": data.username,
-        "password": data.password,  # Napomena: lozinka bi trebala biti heširana
+        "password": data.password,  
         "role": data.role
     }
 

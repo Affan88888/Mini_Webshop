@@ -10,6 +10,8 @@ import OrderConfirmationPage from "./pages/shop/OrderConfirmationPage";
 import LoginPage from './pages/shop/LoginPage';
 import SignupPage from './pages/shop/SignupPage';
 
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+
 import AdminMenuPage from './pages/admin/AdminMenuPage';
 import AdminCreateProductPage from './pages/admin/AdminCreateProductPage';
 import AdminProductDetailsPage from './pages/admin/AdminProductsDetailsPage';
@@ -22,6 +24,7 @@ function App() {
       <Header />
 
       <Routes>
+        {/* ... Public rute ... */}
         <Route path="/" element={<HomePage />}/>
         <Route path="/products/:id" element={<ProductDetailPage />}/>
         <Route path="/cart" element={<CartPage />}/>
@@ -30,10 +33,39 @@ function App() {
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/signup" element={<SignupPage />}/>
 
-        <Route path="/admin" element={<AdminMenuPage />}/>
-        <Route path="/admin/create-product" element={<AdminCreateProductPage />}/>
-        <Route path="/admin/product/:productId" element={<AdminProductDetailsPage />} />
-        <Route path="/admin/created-orders" element={<AdminCheckOrdersPage />} />
+        {/* Admin rute zaštićene */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminMenuPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/create-product"
+          element={
+            <ProtectedAdminRoute>
+              <AdminCreateProductPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/product/:productId"
+          element={
+            <ProtectedAdminRoute>
+              <AdminProductDetailsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/created-orders"
+          element={
+            <ProtectedAdminRoute>
+              <AdminCheckOrdersPage />
+            </ProtectedAdminRoute>
+          }
+        />
       </Routes>
 
     <Footer />

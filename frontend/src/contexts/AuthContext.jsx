@@ -16,6 +16,7 @@ const AuthContext = createContext();
 // Provjerava da li je korisnik već prijavljen pri svakom reloadu aplikacije.
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // useEffect hook koji se izvršava jednom prilikom mountovanja komponente
   // Automatski provjerava da li postoji aktivna sesija usera (npr. preko cookie-ja)
@@ -28,9 +29,13 @@ export const AuthProvider = ({ children }) => {
         if (res.ok) {
           const data = await res.json();
           setUser(data.user); // Primjer: { "email": "x" , "username": "y", "role": "z"}
+        } else {
+          setUser(null)
         }
       } catch (err) {
         setUser(null); // U slučaju greške resetuje korisnika
+      } finally {
+        setLoading(false); // Loading je stavljeno kao zavrseno
       }
     };
 
@@ -48,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider value={{ user, setUser, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
