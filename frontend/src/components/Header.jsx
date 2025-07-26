@@ -1,15 +1,31 @@
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleCartClick = (e) => {
+    if (!user) {
+      e.preventDefault();  // Prevent default link navigation
+      navigate('/login');
+    }
+  };
 
   return (
     <header className="flex items-center justify-between px-8 py-4 text-white bg-gray-800">
-      <Link to="/" className="text-2xl font-bold">Mini Webshop</Link>
+      <Link to="/" className="text-2xl font-bold">
+        Mini Webshop
+      </Link>
 
       <nav className="flex items-center space-x-6">
-        <Link to="/cart" className="text-2xl hover:text-gray-300">🛒</Link>
+        <Link
+          to="/cart"
+          className="text-2xl hover:text-gray-300"
+          onClick={handleCartClick}
+        >
+          🛒
+        </Link>
 
         {user ? (
           <>
