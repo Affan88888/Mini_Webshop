@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config';
 
-const CreateProductPage = () => {
+const AdminCreateProductPage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: '',
@@ -62,4 +62,4 @@ const CreateProductPage = () => {
   );
 };
 
-export default CreateProductPage;
+export default AdminCreateProductPage;

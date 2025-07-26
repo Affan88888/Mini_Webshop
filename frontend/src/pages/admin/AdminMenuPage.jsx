@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FilterBar from '../../components/FilterBar';
 import { API_BASE_URL } from '../../config';
 
-const AdminDashboard = () => {
+const AdminMenuPage = () => {
     const navigate = useNavigate();
 
     const [products, setProducts] = useState([]);
@@ -57,11 +57,11 @@ const AdminDashboard = () => {
   };
 
     const handleCreateClick = () => {
-        navigate('/create-product');
+        navigate('/admin/create-product');
     };
 
     const handleOrdersClick = () => {
-        navigate('/created-orders')
+        navigate('/admin/created-orders')
     }
 
     const handleDelete = async (productId) => {
@@ -148,4 +148,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;
+export default AdminMenuPage;

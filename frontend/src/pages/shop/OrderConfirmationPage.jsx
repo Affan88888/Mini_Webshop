@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const OrderConfirmation = () => {
+const OrderConfirmationPage = () => {
     const navigate = useNavigate();
 
     return (
@@ -16,4 +16,4 @@ const OrderConfirmation = () => {
     );
 };
 
-export default OrderConfirmation;
+export default OrderConfirmationPage;

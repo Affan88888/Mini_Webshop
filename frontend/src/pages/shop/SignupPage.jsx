@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
 import  { useAuth } from "../../contexts/AuthContext"
 
-const Signup = () => {
+const SignupPage = () => {
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -95,4 +95,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

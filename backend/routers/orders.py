@@ -2,11 +2,13 @@ import json
 import os
 import uuid
 
-from fastapi import FastAPI, Request, APIRouter
+from fastapi import FastAPI, Request, APIRouter, HTTPException
 
 orders_router = APIRouter()
 
+# Putanja do fajla sa narudžbama
 ORDERS_PATH = os.path.join("data", "orders.json")
+
 
 @orders_router.post("/create-order")
 async def create_order(request: Request):
@@ -44,3 +46,23 @@ async def create_order(request: Request):
 
     # Vraćanje odgovora sa porukom i ID-em nove narudžbe
     return {"message": "Narudžba je uspješno kreirana", "order_id": order_id}
+
+
+@orders_router.get("/orders")
+def get_all_orders():
+    """
+    Vraća sve narudžbe iz fajla orders.json.
+    Ako fajl ne postoji ili je prazan, vraća se prazna lista.
+    """
+    try:
+        # Učitavanje narudžbi iz fajla
+        with open(ORDERS_PATH, "r") as f:
+            orders = json.load(f)
+    except FileNotFoundError:
+        # Ako fajl ne postoji, vraća se prazna lista
+        return []
+    except json.JSONDecodeError:
+        # Ako fajl nije validan JSON, prijavljuje se greška
+        raise HTTPException(status_code=500, detail="Greška pri čitanju narudžbi")
+    
+    return orders

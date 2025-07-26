@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
 import  { useAuth } from "../../contexts/AuthContext"
 
-const Login = () => {
+const LoginPage = () => {
   const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

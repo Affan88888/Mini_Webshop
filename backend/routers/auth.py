@@ -22,6 +22,7 @@ class SignupRequest(BaseModel):
     username: str
     password: str
     role: str = "user"  # 'user' je po defaultu
+    
 
 @auth_router.post("/login")
 def login_user(data: LoginRequest, response: Response):

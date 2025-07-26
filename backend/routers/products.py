@@ -12,6 +12,7 @@ PRODUCTS_PATH = os.path.join("data", "products.json")
 IMAGES_FOLDER = os.path.join("data", "images")
 os.makedirs(IMAGES_FOLDER, exist_ok=True)
 
+
 @products_router.get("/products")
 def get_products(
     name: Optional[str] = Query(None),

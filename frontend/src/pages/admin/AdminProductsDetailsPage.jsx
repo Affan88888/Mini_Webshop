@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config';
 
-const AdminProductDetails = () => {
+const AdminProductDetailsPage = () => {
     const { productId } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);
@@ -165,4 +165,4 @@ const AdminProductDetails = () => {
     );
 };
 
-export default AdminProductDetails;
+export default AdminProductDetailsPage;
