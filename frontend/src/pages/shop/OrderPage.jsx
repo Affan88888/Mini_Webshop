@@ -2,6 +2,7 @@ import { useCart } from "../../contexts/CartContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from '../../config';
+import GoBackButton from "../../components/GoBackButton";
 
 const OrderPage = () => {
     const { cart, clearCart } = useCart();
@@ -35,6 +36,9 @@ const OrderPage = () => {
 
     return (
         <div className="p-8">
+            <div className="max-w-md">
+                <GoBackButton />
+            </div>
             <h1 className="mb-4 text-2xl font-bold">Place Your Order</h1>
 
             <input

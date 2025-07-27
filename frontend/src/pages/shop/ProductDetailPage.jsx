@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { API_BASE_URL } from '../../config';
+import GoBackButton from '../../components/GoBackButton';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -42,7 +43,12 @@ const ProductDetailPage = () => {
 
   return (
     <div>
-      <div className="p-8">
+      {/* Go Back Button */}
+      <div className="max-w-md mx-auto mt-4">
+        <GoBackButton />
+      </div>
+      {/* Detaljni o produktu */}
+      <div className="max-w-md p-8 mx-auto border border-gray-300 rounded-md">
         <img
           src={`${API_BASE_URL}/${product.image_url}`}
           alt={product.name}

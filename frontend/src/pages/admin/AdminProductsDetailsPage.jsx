@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config';
+import GoBackButton from '../../components/GoBackButton';
 
 const AdminProductDetailsPage = () => {
     const { productId } = useParams();
@@ -86,10 +87,13 @@ const AdminProductDetailsPage = () => {
 
     return (
         <div className="max-w-xl p-6 mx-auto mt-10 bg-white border rounded shadow">
-            <h2 className="mb-4 text-2xl font-semibold">Uredi Proizvod</h2>
+            <div className="max-w-md mt-2">
+                <GoBackButton />
+            </div>
+            <h2 className="mb-4 text-2xl font-semibold">Edit the Product</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block mb-1 font-medium">Naziv</label>
+                    <label className="block mb-1 font-medium">Name</label>
                     <input
                         type="text"
                         name="name"
@@ -100,7 +104,7 @@ const AdminProductDetailsPage = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Opis</label>
+                    <label className="block mb-1 font-medium">Description</label>
                     <textarea
                         name="description"
                         value={formData.description}
@@ -110,7 +114,7 @@ const AdminProductDetailsPage = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Cijena (€)</label>
+                    <label className="block mb-1 font-medium">Price (€)</label>
                     <input
                         type="number"
                         name="price"
@@ -122,7 +126,7 @@ const AdminProductDetailsPage = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium">Količina</label>
+                    <label className="block mb-1 font-medium">Quantity</label>
                     <input
                         type="number"
                         name="quantity"
@@ -135,7 +139,7 @@ const AdminProductDetailsPage = () => {
 
                 {product?.image_url && (
                     <div>
-                    <label className="block mb-1 font-medium">Trenutna slika</label>
+                    <label className="block mb-1 font-medium">Current Image</label>
                     <img
                         src={`${API_BASE_URL}/${product.image_url}`}
                         alt="Trenutna slika"
@@ -144,7 +148,7 @@ const AdminProductDetailsPage = () => {
                     </div>)}
                 
                 <div>
-                    <label className="block mb-1 font-medium">Nova slika (opcionalno)</label>
+                    <label className="block mb-1 font-medium">Change the Current Image</label>
                     <input
                         type="file"
                         name="image"
@@ -158,7 +162,7 @@ const AdminProductDetailsPage = () => {
                     type="submit"
                     className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
                 >
-                    Spasi Promjene
+                    Save Changes
                 </button>
             </form>
         </div>

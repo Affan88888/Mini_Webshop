@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
+import GoBackButton from '../../components/GoBackButton';
 
 const CartPage = () => {
     const { cart, removeFromCart, clearCart } = useCart();
@@ -11,6 +12,9 @@ const CartPage = () => {
 
     return (
         <div className="p-8">
+            <div className="max-w-md">
+                <GoBackButton />
+            </div>
             <h1 className="mb-4 text-2xl font-bold">Your Cart 🛒</h1>
 
             {cart.length === 0 ? (

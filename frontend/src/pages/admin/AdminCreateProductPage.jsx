@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../config';
+import GoBackButton from '../../components/GoBackButton';
 
 const AdminCreateProductPage = () => {
   const navigate = useNavigate();
@@ -48,17 +49,70 @@ const AdminCreateProductPage = () => {
   };
 
   return (
-    <div className="max-w-xl p-6 mx-auto">
-      <h2 className="mb-4 text-2xl font-bold">Create New Product</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="number" name="quantity" placeholder="Quantity" value={form.quantity} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="number" name="price" placeholder="Price" value={form.price} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="file" name="image" onChange={handleChange} className="w-full p-2" accept="image/*" required />
-        <button type="submit" className="px-4 py-2 text-white bg-blue-600 rounded">Create Product</button>
-      </form>
-    </div>
+      <div className="max-w-md p-8 mx-auto mt-8 border border-gray-300 rounded-md">
+        <div className="max-w-md">
+          <GoBackButton />
+        </div>
+
+        <h2 className="mb-6 text-2xl font-bold">Create New Product</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+            required
+          />
+
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+            required
+          />
+
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            value={form.quantity}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+            required
+          />
+
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={form.price}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+            required
+          />
+
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+            accept="image/*"
+            required
+          />
+
+          <button
+            type="submit"
+            className="w-full px-6 py-3 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+          >
+            Create Product
+          </button>
+        </form>
+      </div>
   );
 };
 

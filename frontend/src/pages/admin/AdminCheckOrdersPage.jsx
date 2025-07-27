@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../config';
+import GoBackButton from "../../components/GoBackButton";
 
 const ORDERS_PER_PAGE = 3;
 
@@ -55,6 +56,9 @@ const AdminCheckOrdersPage = () => {
 
     return (
         <div className="p-6">
+            <div className="max-w-md">
+                <GoBackButton />
+            </div>
             <div className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl font-bold">Created Orders</h1>
                 <button
