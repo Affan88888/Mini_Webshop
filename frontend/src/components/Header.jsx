@@ -44,17 +44,6 @@ const Header = () => {
           <>
             <span className="text-lg font-semibold">Welcome, {user.username}</span>
 
-
-            {/* Settings Icon with Hover Label ABOVE */}
-            <div className="relative flex flex-col items-center group">
-              <div className="absolute text-xs text-white transition-opacity opacity-0 bottom-full group-hover:opacity-100">
-                Settings
-              </div>
-              <button className="text-xl hover:text-gray-300">
-                ⚙️
-              </button>
-            </div>
-
             <button
               onClick={handleLogout}
               className="px-4 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600"
