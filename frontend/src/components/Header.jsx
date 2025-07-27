@@ -9,14 +9,14 @@ const Header = () => {
 
   const handleCartClick = (e) => {
     if (!user) {
-      e.preventDefault(); // Prevent default link navigation
-      navigate('/login');
+      e.preventDefault();
+      navigate("/login");
     }
   };
 
   const handleLogout = async () => {
-    await logout();    // performa logout i resetuje user state
-    clearCart();       // clear-a cart poslije logout-a
+    await logout();
+    clearCart();
   };
 
   return (
@@ -26,17 +26,35 @@ const Header = () => {
       </Link>
 
       <nav className="flex items-center space-x-6">
-        <Link
-          to="/cart"
-          className="text-2xl hover:text-gray-300"
-          onClick={handleCartClick}
-        >
-          🛒
-        </Link>
+        {/* Cart Icon with Hover Label ABOVE */}
+        <div className="relative flex flex-col items-center group">
+          <div className="absolute text-xs text-white transition-opacity opacity-0 bottom-full group-hover:opacity-100">
+            Cart
+          </div>
+          <Link
+            to="/cart"
+            className="text-2xl hover:text-gray-300"
+            onClick={handleCartClick}
+          >
+            🛒
+          </Link>
+        </div>
 
         {user ? (
           <>
-            <span className="mr-2 text-sm">Welcome, {user.username}</span>
+            <span className="text-lg font-semibold">Welcome, {user.username}</span>
+
+
+            {/* Settings Icon with Hover Label ABOVE */}
+            <div className="relative flex flex-col items-center group">
+              <div className="absolute text-xs text-white transition-opacity opacity-0 bottom-full group-hover:opacity-100">
+                Settings
+              </div>
+              <button className="text-xl hover:text-gray-300">
+                ⚙️
+              </button>
+            </div>
+
             <button
               onClick={handleLogout}
               className="px-4 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600"
