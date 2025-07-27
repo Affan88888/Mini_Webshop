@@ -168,5 +168,10 @@ def logout_user(response: Response):
     Odjavljuje korisnika brisanjem JWT tokena iz kolačića.
     """
     # Brisanje kolačića sa tokenom (logout)
-    response.delete_cookie("access_token")
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        samesite="None",
+        secure=True
+    )
     return {"status": "success"}
