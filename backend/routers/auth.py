@@ -52,7 +52,7 @@ def login_user(data: LoginRequest, response: Response):
                 value=token,
                 httponly=True,
                 samesite="Lax",
-                secure=False,  # Postavi na True ako koristiš HTTPS
+                secure=True,  # Postavi na True ako koristiš HTTPS
                 max_age=3600  # 1 sat
             )
             # Vraćanje podataka o korisniku
@@ -117,7 +117,7 @@ def signup_user(data: SignupRequest, response: Response):
         key="access_token",
         value=token,
         httponly=True,
-        secure=True,
+        secure=True, # Postavi na True ako koristiš HTTPS
         samesite="Lax",
         max_age=3600  # 1 sat
     )
