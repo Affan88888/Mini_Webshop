@@ -13,8 +13,8 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://mini-webshop-taupe.vercel.app/"],  # Frontend origin
-    allow_credentials=True,
+    allow_origins=["*"],  # Frontend origin
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
