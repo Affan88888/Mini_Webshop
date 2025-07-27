@@ -7,7 +7,14 @@ import GoBackButton from "../../components/GoBackButton";
 const OrderPage = () => {
     const { cart, clearCart } = useCart();
     const navigate = useNavigate();
-    const [form, setForm] = useState({ name: "", surname: "", address: "" });
+    const [form, setForm] = useState({
+        name: "",
+        surname: "",
+        address: "",
+        email: "",
+        phone: ""
+        });
+
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,6 +69,23 @@ const OrderPage = () => {
                 placeholder="Address"
                 className="block p-2 mb-4 border rounded"
             />
+            <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Email"
+                type="email"
+                className="block p-2 mb-2 border rounded"
+            />
+            <input
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="Phone Number"
+                type="tel"
+                className="block p-2 mb-4 border rounded"
+            />
+
 
             <h2 className="mb-2 font-semibold">Your Items:</h2>
             <ul className="mb-4">

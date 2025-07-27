@@ -1,17 +1,19 @@
 [
     {
-        "id": "f53624bb-c894-4a75-be98-ccbfada74f66",
+        "id": "87316c53-914c-4bc1-915f-849e20ae627e",
         "customer": {
-            "name": "Affan ",
+            "name": "Affan",
             "surname": "Kapidzic",
-            "address": "Provare 15"
+            "address": "Himze Polovine 16",
+            "email": "affankapidzic3@gmail.com",
+            "phone": "+38762054807"
         },
         "items": [
             {
                 "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
                 "name": "laptop3545",
                 "description": "HP Omen Laptop",
-                "quantity": 3,
+                "quantity": 1,
                 "price": 1800,
                 "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop2.png",
                 "date": "2025-07-25T20:36:16"
@@ -24,67 +26,82 @@
                 "price": 160,
                 "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
                 "date": "2025-07-25T20:33:06"
+            },
+            {
+                "id": "0270267b-3d1d-41bc-85fc-996f1e41b4cf",
+                "name": "ventilator",
+                "description": "bijeli ventilator",
+                "quantity": 2,
+                "price": 65,
+                "image_url": "data/images/0270267b-3d1d-41bc-85fc-996f1e41b4cf_ventilator.jpg",
+                "date": "2025-07-25T18:40:27"
             }
         ],
-        "timestamp": "2025-07-25T23:27:23.170Z"
+        "timestamp": "2025-07-27T01:16:43.812Z",
+        "status": "Accepted (in preparation)",
+        "status_timestamp": "2025-07-27T01:29:43.713Z"
     },
     {
-        "id": "69aa3791-f080-4f26-806b-cdbf3557e6f4",
+        "id": "20d6268d-a914-48e7-ad82-c007861bbf20",
         "customer": {
-            "name": "Tarik",
-            "surname": "Ibreljic",
-            "address": "Safeta Pasalica 56"
+            "name": "Kan",
+            "surname": "Kapidzic",
+            "address": "Bjelave 156",
+            "email": "kan@gmail.com",
+            "phone": "+38762436707"
         },
         "items": [
             {
-                "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
-                "name": "tastatura",
-                "description": "AULA mehanicka tastatura",
+                "id": "0270267b-3d1d-41bc-85fc-996f1e41b4cf",
+                "name": "ventilator",
+                "description": "bijeli ventilator",
                 "quantity": 1,
-                "price": 160,
-                "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
-                "date": "2025-07-25T20:33:06"
+                "price": 65,
+                "image_url": "data/images/0270267b-3d1d-41bc-85fc-996f1e41b4cf_ventilator.jpg",
+                "date": "2025-07-25T18:40:27"
+            },
+            {
+                "id": "d8f09005-538d-4ab5-9200-95e2e45b6375",
+                "name": "monitor",
+                "description": "AOC monitor 27inch",
+                "quantity": 3,
+                "price": 350,
+                "image_url": "data/images/d8f09005-538d-4ab5-9200-95e2e45b6375_monitor.jpg",
+                "date": "2025-07-25T18:39:42"
             }
         ],
-        "timestamp": "2025-07-25T23:29:16.681Z"
+        "timestamp": "2025-07-27T01:37:01.985Z",
+        "status": "pending",
+        "status_timestamp": null
     },
     {
-        "id": "3412645f-a5ad-460b-9517-8816bd846ed6",
+        "id": "115a593d-435d-445d-8123-b98f6ff209fc",
         "customer": {
             "name": "Hana",
             "surname": "Kapidzic",
-            "address": "sarajevo"
+            "address": "Bjelave 12",
+            "email": "hana@gmail.com",
+            "phone": "+38762065803"
         },
         "items": [
-            {
-                "id": "be95d85f-c172-4f7d-be55-f8b0fc5f0e1a",
-                "name": "ruksak",
-                "description": "plavi ruksak",
-                "quantity": 1,
-                "price": 120,
-                "image_url": "data/images/be95d85f-c172-4f7d-be55-f8b0fc5f0e1a_ruksak.jpg",
-                "date": "2025-07-25T18:40:09"
-            },
             {
                 "id": "96115963-35dc-4e6a-94cd-f9bb734a2d32",
                 "name": "laptop3545",
                 "description": "HP Omen Laptop",
-                "quantity": 1,
+                "quantity": 2,
                 "price": 1800,
                 "image_url": "data/images/96115963-35dc-4e6a-94cd-f9bb734a2d32_laptop2.png",
                 "date": "2025-07-25T20:36:16"
-            }
-        ],
-        "timestamp": "2025-07-25T23:30:20.337Z"
-    },
-    {
-        "id": "0c33315e-f447-4e17-9d4d-f69ee9619000",
-        "customer": {
-            "name": "affan",
-            "surname": "kapidzic",
-            "address": "Provare 15"
-        },
-        "items": [
+            },
+            {
+                "id": "7ea9cb9e-3785-43be-beb7-94d9c6cb83d2",
+                "name": "stolica",
+                "description": "gejmerska stolica",
+                "quantity": 1,
+                "price": 180,
+                "image_url": "data/images/7ea9cb9e-3785-43be-beb7-94d9c6cb83d2_stolica.jpg",
+                "date": "2025-07-25T19:03:25"
+            },
             {
                 "id": "932b02a9-cf60-4f58-8052-a3d7e7ccc48a",
                 "name": "tastatura",
@@ -93,8 +110,19 @@
                 "price": 160,
                 "image_url": "data/images/932b02a9-cf60-4f58-8052-a3d7e7ccc48a_tastatura.jpg",
                 "date": "2025-07-25T20:33:06"
+            },
+            {
+                "id": "0270267b-3d1d-41bc-85fc-996f1e41b4cf",
+                "name": "ventilator",
+                "description": "bijeli ventilator",
+                "quantity": 1,
+                "price": 65,
+                "image_url": "data/images/0270267b-3d1d-41bc-85fc-996f1e41b4cf_ventilator.jpg",
+                "date": "2025-07-25T18:40:27"
             }
         ],
-        "timestamp": "2025-07-26T13:12:02.277Z"
+        "timestamp": "2025-07-27T01:38:22.324Z",
+        "status": "Finished",
+        "status_timestamp": "2025-07-27T01:46:28.269Z"
     }
 ]

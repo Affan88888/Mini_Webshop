@@ -2,29 +2,26 @@ import { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../config';
 import GoBackButton from "../../components/GoBackButton";
 
-const ORDERS_PER_PAGE = 3;
+const ORDERS_PER_PAGE = 2;
 
 const AdminCheckOrdersPage = () => {
     const [orders, setOrders] = useState([]);
     const [sortedOrders, setSortedOrders] = useState([]);
     const [sortOrder, setSortOrder] = useState("desc");
     const [currentPage, setCurrentPage] = useState(1);
-    const [statusMap, setStatusMap] = useState({});
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/orders`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch orders");
-                }
+                if (!response.ok) throw new Error("Failed to fetch orders");
                 const data = await response.json();
                 setOrders(data);
             } catch (error) {
                 console.error(error);
             }
         };
-
+        
         fetchOrders();
     }, []);
 
@@ -43,15 +40,38 @@ const AdminCheckOrdersPage = () => {
         currentPage * ORDERS_PER_PAGE
     );
 
-    const handleStatusChange = (orderId, status) => {
-        setStatusMap((prev) => ({
-            ...prev,
-            [orderId]: status,
-        }));
-    };
-
     const toggleSortOrder = () => {
         setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    };
+
+    const handleStatusChange = async (orderId, newStatus) => {
+        const status_timestamp = new Date().toISOString();
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    status: newStatus,
+                    status_timestamp: status_timestamp,
+                }),
+            });
+
+            if (!response.ok) throw new Error("Failed to update order status");
+
+            // Update local state
+            setOrders((prevOrders) =>
+                prevOrders.map((order) =>
+                    order.id === orderId
+                        ? { ...order, status: newStatus, status_timestamp }
+                        : order
+                )
+            );
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -59,6 +79,7 @@ const AdminCheckOrdersPage = () => {
             <div className="max-w-md">
                 <GoBackButton />
             </div>
+
             <div className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl font-bold">Created Orders</h1>
                 <button
@@ -73,10 +94,17 @@ const AdminCheckOrdersPage = () => {
                 <div key={order.id} className="p-4 mb-6 border rounded shadow">
                     <div className="mb-2">
                         <h2 className="text-lg font-semibold">Order ID: {order.id}</h2>
-                        <p>Customer: {order.customer.name} {order.customer.surname}</p>
-                        <p>Address: {order.customer.address}</p>
-                        <p>Date: {new Date(order.timestamp).toLocaleString()}</p>
-                        <p>Status: <span className="font-semibold">{statusMap[order.id] || "Pending"}</span></p>
+                        <p><b>Customer:</b> {order.customer.name} {order.customer.surname}</p>
+                        <p><b>Address:</b> {order.customer.address}</p>
+                        <p><b>Email:</b> {order.customer.email}</p>
+                        <p><b>Phone:</b> {order.customer.phone}</p>
+                        <p><b>Date:</b> {new Date(order.timestamp).toLocaleString()}</p>
+                        <p><b>Status:</b> <span className="font-semibold">{order.status || "Pending"}</span></p>
+                        {order.status_timestamp && (
+                            <p className="text-sm text-gray-500">
+                                Updated: {new Date(order.status_timestamp).toLocaleString()}
+                            </p>
+                        )}
                     </div>
 
                     <div className="pl-4 mb-2">
@@ -121,7 +149,6 @@ const AdminCheckOrdersPage = () => {
                 </div>
             ))}
 
-            {/* Pagination */}
             <div className="flex justify-center mt-6 space-x-2">
                 <button
                     disabled={currentPage === 1}
