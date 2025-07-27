@@ -82,7 +82,7 @@ const HomePage = () => {
 
             {/* Indikator za loading */}
             {loading && (
-                <div className="my-4 font-semibold text-blue-500">Učitavanje proizvoda...</div>
+                <div className="my-4 font-semibold text-blue-500">Loading Products...</div>
             )}
 
             <h1 className="mb-4 text-2xl font-bold"> Products </h1>
