@@ -86,85 +86,87 @@ const AdminProductDetailsPage = () => {
     if (error) return <div className="p-4 text-red-500">Greška: {error}</div>;
 
     return (
-        <div className="max-w-xl p-6 mx-auto mt-10 bg-white border rounded shadow">
-            <div className="max-w-md mt-2">
-                <GoBackButton />
-            </div>
-            <h2 className="mb-4 text-2xl font-semibold">Edit the Product</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block mb-1 font-medium">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded"
-                        required
-                    />
+        <div className="p-6">
+            <div className="max-w-xl p-6 mx-auto mt-10 bg-white border rounded shadow">
+                <div className="max-w-md mt-2">
+                    <GoBackButton />
                 </div>
-                <div>
-                    <label className="block mb-1 font-medium">Description</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded"
-                        rows="4"
-                    />
-                </div>
-                <div>
-                    <label className="block mb-1 font-medium">Price (€)</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded"
-                        step="0.01"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block mb-1 font-medium">Quantity</label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        value={formData.quantity}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded"
-                        required
-                    />
-                </div>
-
-                {product?.image_url && (
+                <h2 className="mb-4 text-2xl font-semibold">Edit the Product</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                    <label className="block mb-1 font-medium">Current Image</label>
-                    <img
-                        src={`${API_BASE_URL}/${product.image_url}`}
-                        alt="Trenutna slika"
-                        className="w-32 h-auto rounded"
-                    />
-                    </div>)}
-                
-                <div>
-                    <label className="block mb-1 font-medium">Change the Current Image</label>
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
+                        <label className="block mb-1 font-medium">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block mb-1 font-medium">Description</label>
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                            rows="4"
+                        />
+                    </div>
+                    <div>
+                        <label className="block mb-1 font-medium">Price (€)</label>
+                        <input
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                            step="0.01"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block mb-1 font-medium">Quantity</label>
+                        <input
+                            type="number"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                    </div>
 
-                <button
-                    type="submit"
-                    className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-                >
-                    Save Changes
-                </button>
-            </form>
+                    {product?.image_url && (
+                        <div>
+                        <label className="block mb-1 font-medium">Current Image</label>
+                        <img
+                            src={`${API_BASE_URL}/${product.image_url}`}
+                            alt="Trenutna slika"
+                            className="w-32 h-auto rounded"
+                        />
+                        </div>)}
+                    
+                    <div>
+                        <label className="block mb-1 font-medium">Change the Current Image</label>
+                        <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="w-full p-2 border rounded"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+                    >
+                        Save Changes
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

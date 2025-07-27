@@ -40,7 +40,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-100">
+    <div className="flex items-center justify-center px-4 py-24 overflow-hidden bg-gray-100 sm:px-6 md:px-12 lg:px-20 sm:py-32 md:py-40 lg:py-48">
       <form
         onSubmit={handleSignup}
         className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg"

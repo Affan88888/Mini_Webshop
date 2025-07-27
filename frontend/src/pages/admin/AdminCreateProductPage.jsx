@@ -49,7 +49,7 @@ const AdminCreateProductPage = () => {
   };
 
   return (
-      <div className="p-8">
+      <div className="p-6">
         <div className="max-w-md p-8 mx-auto mt-8 border border-gray-300 rounded-md p-18">
           <div className="max-w-md">
             <GoBackButton />

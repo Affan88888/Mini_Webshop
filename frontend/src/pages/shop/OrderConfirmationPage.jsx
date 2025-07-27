@@ -4,7 +4,7 @@ const OrderConfirmationPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="p-8 text-center">
+        <div className="p-6 text-center">
             <h1 className="mb-4 text-3xl font-bold">Your order has been placed! ✅</h1>
             <button
                 onClick={() => navigate("/")}

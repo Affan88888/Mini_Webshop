@@ -42,7 +42,7 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-6">
       {/* Go Back Button */}
       <div className="max-w-md mx-auto">
         <GoBackButton />

@@ -104,9 +104,9 @@ const AdminMenuPage = () => {
     return (
         <div className="p-6">
             {/* Header sa naslovom i dugmad za dodavanje proizvoda i pregled narudžbi */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-wrap items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-                <div className="space-x-4">
+                <div className="flex flex-col mt-4 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mt-0">
                     <button
                         onClick={handleCreateClick}
                         className="px-4 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-700"

@@ -42,7 +42,7 @@ const OrderPage = () => {
     };
 
     return (
-        <div className="p-8">
+        <div className="p-6">
             <div className="max-w-md">
                 <GoBackButton />
             </div>
